@@ -75,6 +75,35 @@ in_port_t ngx_request_port(ngx_str_t *scheme, ngx_str_t *port);
 ngx_int_t ngx_md5_file(ngx_fd_t fd, u_char md5key[NGX_MD5KEY_LEN]);
 
 
+/*
+ * copy str
+ *
+ * return value:
+ *      NGX_OK: copy successd
+ *      NGX_ERROR: copy failed
+ * paras:
+ *      pool: for alloc space for storing str
+ *      dst: str copy to
+ *      src: str copy from
+ */
+ngx_int_t ngx_copy_str(ngx_pool_t *pool, ngx_str_t *dst, ngx_str_t *src);
+
+
+/*
+ * parse text to struct sockaddr
+ *
+ * return value:
+ *      0: if text is not ipv4/ipv6/unix address
+ *      >0: socklen for sa
+ *
+ * paras:
+ *      sa: struct sockadd parse to
+ *      text: ipv4/ipv6/unix address for parsing, text could have port
+ *      len: text's length
+ */
+socklen_t ngx_sock_pton(struct sockaddr *sa, u_char *text, size_t len);
+
+
 #ifdef NGX_DEBUG
 
 #define NGX_START_TIMING                                            \
